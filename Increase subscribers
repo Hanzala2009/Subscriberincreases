@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Channel Promotion</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Channel Promotion</h1>
+        <p id="points">Points: 0</p>
+
+        <button id="subscribeBtn">Subscribe to Earn 300 Coins</button>
+        <button id="watchVideoBtn">Watch Video to Earn 100 Coins</button>
+
+        <h2>Promote Your Channel</h2>
+        <form id="promotionForm">
+            <label for="videoLink">Video Link:</label>
+            <input type="url" id="videoLink" required>
+            <button type="submit">Promote My Channel (1000 Coins)</button>
+        </form>
+
+        <p id="promotionMessage"></p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f4f4;
+    margin: 0;
+}
+
+.container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+button {
+    display: block;
+    margin: 10px 0;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+form {
+    margin-top: 20px;
+}
+
+input[type="url"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+let points = 0;
+
+const pointsDisplay = document.getElementById('points');
+const subscribeBtn = document.getElementById('subscribeBtn');
+const watchVideoBtn = document.getElementById('watchVideoBtn');
+const promotionForm = document.getElementById('promotionForm');
+const promotionMessage = document.getElementById('promotionMessage');
+
+// Update points display
+function updatePoints() {
+    pointsDisplay.textContent = `Points: ${points}`;
+}
+
+// Subscribe button event
+subscribeBtn.addEventListener('click', () => {
+    points += 300;
+    updatePoints();
+    alert('You have earned 300 coins for subscribing!');
+});
+
+// Watch video button event
+watchVideoBtn.addEventListener('click', () => {
+    points += 100;
+    updatePoints();
+    alert('You have earned 100 coins for watching the video!');
+});
+
+// Promotion form event
+promotionForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (points >= 1000) {
+        points -= 1000;
+        updatePoints();
+        const videoLink = document.getElementById('videoLink').value;
+        promotionMessage.textContent = `Your channel has been promoted with the video link: ${videoLink}`;
+    } else {
+        promotionMessage.textContent = 'You need at least 1000 coins to promote your channel.';
+    }
+});
